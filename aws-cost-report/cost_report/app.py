@@ -13,7 +13,8 @@ def lambda_handler(event, context):
     print(total_cost)
     # {"message": "cost_report", "cost_report": [[{"service": "Amazon Kinesis", "amount": 2.7, "unit": "USD"}, {"service": "Amazon Virtual Private Cloud", "amount": 2.09, "unit": "USD"}, {"service": "AWS Identity and Access Management Access Analyzer", "amount": 1.0, "unit": "USD"}, {"service": "Amazon Route 53", "amount": 0.5, "unit": "USD"}, {"service": "Tax", "amount": 0.66, "unit": "USD"}], 6.95]}
 
-    message_body = "今月のAWSの利用料金: " + str(total_cost) + " USD"
+    current_date = datetime.now().strftime("%Y/%m")
+    message_body = f"今月({current_date}) のAWS利用料金: { str(total_cost) } USD"
     # SNSに通知
     notify_sns(message_body)
     return {

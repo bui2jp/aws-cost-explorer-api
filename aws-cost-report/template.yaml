@@ -21,15 +21,16 @@ Resources:
         Variables:
           SNS_TOPIC_ARN: !Ref CostReportSNSTopic
       Events:
-        HelloWorld:
+        MyCostReportApi:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
             Path: /cost-report
             Method: get
-        ScheduledEvent:
+        MyScheduledEvent:
           Type: Schedule
           Properties:
-            Schedule: rate(1 minute)
+            # Schedule: rate(1 day)
+            Schedule: cron(0 9 * * ? *) # 毎日午前9時（UTC）に実行
       Policies:
         - Statement:
             Effect: Allow
@@ -37,7 +38,6 @@ Resources:
               - "ce:GetCostAndUsage"
               - "sns:Publish"
             Resource: "*"
-
     Metadata:
       Dockerfile: Dockerfile
       DockerContext: ./cost_report
@@ -68,9 +68,9 @@ Outputs:
   # HelloWorldFunctionIamRole:
   #   Description: "Implicit IAM Role created for Hello World function"
   #   Value: !GetAtt HelloWorldFunctionRole.Arn
-  CostReportApi:
-    Description: "API Gateway endpoint URL for Prod stage for Cost Report function"
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/cost-report/"
+  # CostReportApi:
+  #   Description: "API Gateway endpoint URL for Prod stage for Cost Report function"
+  #   Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/cost-report/"
   CostReportFunction:
     Description: "Cost Report Lambda Function ARN"
     Value: !GetAtt CostReportFunction.Arn

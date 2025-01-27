@@ -68,10 +68,6 @@ Outputs:
   # HelloWorldFunctionIamRole:
   #   Description: "Implicit IAM Role created for Hello World function"
   #   Value: !GetAtt HelloWorldFunctionRole.Arn
-  # CostReportApi:
-  #   Description: "API Gateway endpoint URL for Prod stage for Hello World function"
-  #   Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello/"
-
   CostReportApi:
     Description: "API Gateway endpoint URL for Prod stage for Cost Report function"
     Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/cost-report/"
@@ -81,3 +77,6 @@ Outputs:
   CostReportFunctionIamRole:
     Description: "Implicit IAM Role created for Cost Report function"
     Value: !GetAtt CostReportFunctionRole.Arn
+  CostReportSNSTopicArn:
+    Description: "Cost Report SNS Topic ARN"
+    Value: !Ref CostReportSNSTopic

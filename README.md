@@ -4,6 +4,11 @@ lambda(python)で作成した AWS Cost Explorer API のサンプルです。
 
 <img src="./aws-cost-report.drawio.png" alt="image" width="500"/>
 
+以下を利用
+
+- boto3.client('ce').get_cost_and_usage
+- boto3.client('sns').publish
+
 ## env
 
 ```

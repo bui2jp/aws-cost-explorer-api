@@ -21,6 +21,7 @@ Resources:
         Variables:
           SNS_TOPIC_ARN: !Ref CostReportSNSTopic
       Events:
+        #API Gateway HTTP API endpoint
         MyCostReportApi:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
@@ -30,7 +31,7 @@ Resources:
           Type: Schedule
           Properties:
             # Schedule: rate(1 day)
-            Schedule: cron(0 9 * * ? *) # 毎日午前9時（UTC）に実行
+            Schedule: cron(50 0 * * ? *) # 毎日午前9時（UTC）に実行
       Policies:
         - Statement:
             Effect: Allow
